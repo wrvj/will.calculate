@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Theme colors */
+    --medium-gray: #363636;
+    --dark-gray: #1d1d1d;
+    --dark-gray-translucent: rgba(29, 29, 29, 0.97);
+    --light-gray: #d6d6d6;
+    --main-blue: #39c5e7;
+    --cold-white: #ecfbff;
+    /* Food table config */
+    --table-font-size: 14px;
+    --table-font-weight: 200;
+    --table-font-color: var(--light-gray);
+    --filter-icons-table: invert(87%) sepia(21%) saturate(0%) hue-rotate(156deg) brightness(50%) contrast(96%);
+    --filter-icons-table-hover: invert(87%) sepia(21%) saturate(0%) hue-rotate(156deg) brightness(70%) contrast(96%);
+    --filter-icons-red: invert(48%) sepia(46%) saturate(2841%) hue-rotate(327deg) brightness(89%) contrast(119%);
+    --filter-icons-red-hover: invert(48%) sepia(46%) saturate(2841%) hue-rotate(327deg) brightness(60%) contrast(119%);
+}
+
+body {
+    position: relative;
+    background: var(--medium-gray);
+    background-image: url("../img/background_1.jpg");
+    background-size: cover;
+    background-position-x: center;
+    font-family: "Poppins", sans-serif;
+}
