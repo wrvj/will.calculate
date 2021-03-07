@@ -10,8 +10,11 @@
     --dark-gray: #1d1d1d;
     --dark-gray-translucent: rgba(29, 29, 29, 0.97);
     --light-gray: #d6d6d6;
-    --main-blue: #39c5e7;
+    --main-orange: #eb811e;
+    --main-orange-active: #975211;
     --cold-white: #ecfbff;
+    --color-key: rgb(53, 53, 53);
+    --color-key-active: rgb(39, 39, 39);
     /* Food table config */
     --table-font-size: 14px;
     --table-font-weight: 200;
@@ -24,9 +27,107 @@
 
 body {
     position: relative;
-    background: var(--medium-gray);
-    background-image: url("../img/background_1.jpg");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: var(--light-gray);
     background-size: cover;
     background-position-x: center;
     font-family: "Poppins", sans-serif;
+}
+
+.calculator {
+    overflow: hidden;
+    width: 16rem;
+    background-color: var(--dark-gray);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.display {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--dark-gray);
+    text-align: right;
+    padding: .7rem 1.4rem;
+    font-size: 2rem;
+    color: var(--cold-white);
+}
+
+.keyboard {
+    display: grid;
+    grid-template-areas: '. . . .' 'seven eight nine equal' 'four five six equal' 'one two three equal' 'dot zero clear equal';
+    grid-gap: 2px;
+}
+
+.key,
+.operator {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    color: var(--cold-white);
+    border: none;
+    outline: none;
+    min-height: 3rem;
+    background-color: var(--color-key);
+}
+
+.key:active,
+.operator:active {
+    background-color: var(--color-key-active);
+}
+
+.one {
+    grid-area: one;
+}
+
+.two {
+    grid-area: two;
+}
+
+.three {
+    grid-area: three;
+}
+
+.four {
+    grid-area: four;
+}
+
+.five {
+    grid-area: five;
+}
+
+.siz {
+    grid-area: siz;
+}
+
+.seven {
+    grid-area: seven;
+}
+
+.eight {
+    grid-area: eight;
+}
+
+.nine {
+    grid-area: nine;
+}
+
+.zero {
+    grid-area: zero;
+}
+
+.dot {
+    grid-area: dot;
+}
+
+.clear {
+    grid-area: clear;
+}
+
+.equal {
+    background-color: var(--main-orange);
+    grid-area: equal;
+}
+
+.equal:active {
+    background-color: var(--main-orange-active);
 }
