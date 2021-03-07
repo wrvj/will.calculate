@@ -131,3 +131,7 @@ body {
 .equal:active {
     background-color: var(--main-orange-active);
 }
+
+[data-state='selected'] {
+    background-color: red;
+}
