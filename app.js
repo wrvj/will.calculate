@@ -1,16 +1,8 @@
 const calculator = document.querySelector('.calculator');
 const keyboard = calculator.querySelector('.keyboard');
 const display = calculator.querySelector('.display');
-const debugDataContainer = document.querySelector('.debug-data');
-
-debugDataContainer.innerText = `Last Number: ${calculator.dataset.firstNumber} Display Number: ${display.innerText} Operator:`;
-
 
 keyboard.addEventListener('click', event => {
-    debugDataContainer.innerText = `Last Number: ${calculator.dataset.firstNumber} Display Number: ${display.innerText} Operator: ${calculator.dataset.operator}`;
-
-
-
 
     if (!event.target.closest('button')) return
 
@@ -71,9 +63,10 @@ keyboard.addEventListener('click', event => {
         updateSecondaryDisplayText(keyValue, 'append');
         calculator.dataset.operator = key.dataset.operatorType;
     }
+    //if key is equal
     if (type === 'equal' && previousKeyType == 'number' && calculator.dataset.operator != 'none') {
 
-        // Performa a calculation
+        // Performa a calculation if operator and numbers are valid
         const firstNumber = calculator.dataset.firstNumber;
         const secondNumber = displayValue;
         const operator = calculator.dataset.operator;
@@ -88,9 +81,11 @@ keyboard.addEventListener('click', event => {
 
 
     } else if (type === 'equal') {
+        //invalida operation, do nothing and return to the last valid keytype ()
         type = previousKeyType;
-        console.log("operaçao invalida");
     }
+
+    //if key is clear, resets the calculator
     if (type === 'clear') {
         display.innerText = '0';
         display.dataset.secondaryDisplay = '0';
@@ -98,9 +93,8 @@ keyboard.addEventListener('click', event => {
         calculator.dataset.operator = 'none';
     }
 
+    //after all actions, set the previous keytype to the current keytype
     calculator.dataset.previousKeyType = type;
-
-
 });
 
 function calculate(firstNumber, secondNumber, operator) {
@@ -113,13 +107,17 @@ function calculate(firstNumber, secondNumber, operator) {
     if (operator === 'times') return firstNumber * secondNumber;
     if (operator === 'divide') return firstNumber / secondNumber;
 
+    //if invalid operator, returns the second number as a fallback
     return secondNumber;
 
 }
 
 function updateSecondaryDisplayText(newText, method) {
-    if (display.dataset.secondaryDisplay === '0' && newText != '.') {
+    if (display.dataset.secondaryDisplay === '0') {
         method = 'clear';
+        if (newText === '.') {
+            newText = '0.'
+        }
     }
     if (method === 'clear') display.dataset.secondaryDisplay = newText;
     if (method === 'append') display.dataset.secondaryDisplay = display.dataset.secondaryDisplay + newText;
