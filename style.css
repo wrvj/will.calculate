@@ -28,6 +28,7 @@
 body {
     position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
@@ -38,8 +39,10 @@ body {
 }
 
 .calculator {
+    position: relative;
     overflow: hidden;
     width: 16rem;
+    border-radius: .5rem;
     background-color: var(--dark-gray);
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
 }
@@ -48,9 +51,21 @@ body {
     font-family: 'Montserrat', sans-serif;
     background-color: var(--dark-gray);
     text-align: right;
-    padding: .7rem 1.4rem;
+    padding: 1.6rem 1rem .7rem 1rem;
     font-size: 2rem;
+    line-height: 2rem;
     color: var(--cold-white);
+}
+
+.display::after {
+    content: attr(data-secondary-display);
+    position: absolute;
+    text-align: right;
+    color: rgba(255, 255, 255, 0.5);
+    right: 1.4rem;
+    top: .55rem;
+    line-height: 1rem;
+    font-size: .6rem;
 }
 
 .keyboard {
@@ -133,5 +148,5 @@ body {
 }
 
 [data-state='selected'] {
-    background-color: red;
+    background-color: rgba(255, 255, 255, 0.2);
 }
