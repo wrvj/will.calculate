@@ -3,7 +3,7 @@ Simple calculator app
 
 <h3>To do list</h3>
 <ul>
-<li>Add the operation's <b>history</b> to the secondary display</li>
+<li><strike>Add the operation's <b>history</b> to the secondary display</strike></li>
 <li><strike>Implement more complex operations using the current operators (plus, minus, multiplication and division)</strike></li>
 <li><strike>Test for edge cases</strike></li>
 <li>Add a title and a simple description to the page</li>
