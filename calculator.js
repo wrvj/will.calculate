@@ -1,24 +1,20 @@
 class Calculator {
     constructor() {
 
-        this.state = Calculator.initialState;
+        this.state = Calculator.INITIAL_STATE;
         this.display = { mainDisplay: "0", secondaryDisplay: "0" };
     }
     static validKeys = /[\*\+\x2D-\/=(0-9)cC]/;
+    static operatorKeys = /(\+|\-|\/|\*)/;
 
-    static initialState = { current_value: 0, previous_value: '', display_Value: '0', operator: '', result: '', lastKey: '' };
+    static INITIAL_STATE = {expression : ['0'], rawInput : '0'};
+    
 
     static operations = {
-        'plus': (a, b) => { return (parseFloat(a) + parseFloat(b)) },
-        'minus': (a, b) => { return (parseFloat(a) - parseFloat(b)) },
-        'times': (a, b) => { return (parseFloat(a) * parseFloat(b)) },
-        'divide': (a, b) => { return (parseFloat(a) / parseFloat(b)) }
-    }
-    static operatorByKey = {
-        '+': 'plus',
-        '-': 'minus',
-        '*': 'times',
-        '/': 'divide',
+        '+': (a, b) => { return (parseFloat(a) + parseFloat(b)) },
+        '-': (a, b) => { return (parseFloat(a) - parseFloat(b)) },
+        '*': (a, b) => { return (parseFloat(a) * parseFloat(b)) },
+        '/': (a, b) => { return (parseFloat(a) / parseFloat(b)) }
     }
     static calculate(a, operation, b) {
         try {
@@ -28,117 +24,71 @@ class Calculator {
         }
 
     }
+    enterKey(key){
+      if(!this.isValidKey(key)){
+        return;
+      }
+      this.state.rawInput = this.addToRawInput(key);
+      
+      if(this.isEqualKey(key)) {
+        this.state.rawInput = '0' +  this.solveExpression(this.state.expression).toString();
+        // this.state.expression = [this.solveExpression(this.state.expression)];
+      } 
+      if (this.isResetKey(key)){
+        this.state.rawInput = '0';
+      }
 
-    enterKey(key) {
-        if (!this.isValidKey(key)) {
-            console.log('invalid operation');
-            return;
+      this.state.expression = this.processRawInput(this.state.rawInput);
+      this.display.secondaryDisplay = this.state.expression.join(' ').toString() + ` = ${this.solveExpression(this.state.expression)}`;
+      
+      if (this.isNumber(key))this.display.mainDisplay = this.state.expression[this.state.expression.length-1];
+      if(this.isOperator(key) || this.isEqualKey(key) || this.isResetKey(key)){this.display.mainDisplay = this.solveExpression(this.state.expression)}
+      console.log(this.state.rawInput, this.state.expression, this.solveExpression(this.state.expression).toString());
+    }
+    isNumber(element){
+      return (parseFloat(element) || parseFloat(element) === 0 || element==='.') ? true : false;
+    }
+    isOperator(element){
+      return Calculator.operatorKeys.test(element);
+    }
+    isEqualKey(key){
+      return /=/.test(key);
+    }
+    isResetKey(key){
+      return /c|C/.test(key);
+    }
+    isValidKey(key){
+      return Calculator.validKeys.test(key);
+    }
+    addToRawInput(char){
+        return this.removeOperatorDuplicates(this.state.rawInput + char);
+    }
+    removeOperatorDuplicates(rawInput){
+      let newRawInput = '';
+      for (let i = 0;i<rawInput.length;i++){
+        if(this.isNumber(rawInput[i]) || !this.isOperator(rawInput[i+1])){
+          newRawInput = newRawInput + rawInput[i];
         }
-        if (this.isNumberKey(key)) this.state = this.numberInputHandler(key);
-        if (this.isOperatorKey(key)) this.state = this.operatorInputHandler(key);
-        if (this.isResetKey(key)) this.state = Calculator.initialState;
-        if (this.isEqualKey(key)) this.state = this.equalInputHandler(key);
-
-
-
-
-        this.display = { mainDisplay: this.state.display_Value, secondaryDisplay: "0" };
-        this.state.lastKey = key;
-
-        // console.clear();
-        console.log({...this.state })
-        return this.display;
+      }
+      return newRawInput;
     }
-    isValidKey(key) {
-        if (key.length != 1) return false;
-        return Calculator.validKeys.test(key);
-    }
-    isNumberKey(key) {
-        return /[(0-9)|\.]/.test(key);
-    }
-    isOperatorKey(key) {
-        return /[\*\+\x2D\/]/.test(key);
-    }
-    isResetKey(key) {
-        return /[C]/.test(key);
-    }
-    isEqualKey(key) {
-        return /[=]/.test(key);
-    }
-    numberInputHandler(key) {
 
-        let newDisplayValue = this.state.current_value.toString();
-        let previous_value = this.state.previous_value;
-        let operator = this.state.operator;
-
-        if (!this.isNumberKey(this.state.lastKey)) {
-            newDisplayValue = '0';
-            if (this.isEqualKey(this.state.lastKey)) {
-                previous_value = Calculator.initialState.previous_value;
-                operator = Calculator.initialState.operator;
-            }
-        }
-
-        newDisplayValue = (this.isDecimal(key) && this.isDecimal(newDisplayValue)) ?
-            this.removeLeftZeros(this.state.display_Value) : this.removeLeftZeros(newDisplayValue + key);
-
-        return {
-            current_value: newDisplayValue,
-            previous_value: previous_value,
-            display_Value: newDisplayValue,
-            operator: operator,
-            result: '',
-            lastKey: key
-        };
+    processRawInput(rawInput){
+      return rawInput.split(Calculator.operatorKeys).map(x => this.customParseFloat(x));
     }
-    operatorInputHandler(key) {
-        if (this.isOperatorKey(this.state.lastKey) || this.isEqualKey(this.state.lastKey)) return {
-            current_value: this.state.current_value,
-            previous_value: this.state.previous_value,
-            display_Value: this.state.display_Value,
-            operator: key,
-            result: this.state.result,
-            lastKey: key
-        }
-        else if (this.state.operator && this.isNumberKey(this.state.lastKey)) return this.equalInputHandler(key)
-        else if (this.state.lastKey != '=') return {
-            current_value: 0,
-            previous_value: parseFloat(this.state.display_Value),
-            display_Value: this.state.current_value.toString(),
-            operator: key,
-            result: this.state.result,
-            lastKey: key
-        }
-    }
-    equalInputHandler(key) {
-
-        const result = Calculator.calculate(this.state.previous_value, Calculator.operatorByKey[this.state.operator], this.state.current_value);
-
-        return this.isValidResult(result) ? {
-            current_value: this.state.current_value,
-            previous_value: result,
-            display_Value: result.toString(),
-            operator: this.state.operator,
-            result: result,
-            lastKey: key
-        } : this.state;
-    }
-    isValidResult(result) {
-
-        return (result || result == 0) ? true : false;
-    }
-    updateDisplay(mainDisplay, secondaryDisplay) {
-        return { mainDisplay: mainDisplay, secondaryDisplay: secondaryDisplay };
-    }
-    removeLeftZeros(number) {
-        if (number.charAt(0) == '0' && number.charAt(1) != '.' && number.length > 1) return this.removeLeftZeros(number.slice(1))
-        else return number;
-    }
-    isDecimal(number) {
-        return number.indexOf('.') === -1 ? false : true;
+    customParseFloat(element){
+      return (this.isNumber(element)) ? parseFloat(element) : element;
     }
 
 
+    solveExpression(expression){
+      let accumulator = expression[0];
+      for (const [i,x] of expression.entries()){
+        if(this.isOperator(x) && this.isNumber(expression[i+1])){
+          accumulator = Calculator.operations[x](accumulator, expression[i+1]);
+        } 
+      }
+      return accumulator;
+    }
 }
 
-const calc = new Calculator();
