@@ -8,7 +8,7 @@ Simple calculator app
 <li><strike>Test for edge cases</strike></li>
 <li>Add a title and a simple description to the page</li>
 <li>Implement <b>keyboard</b> support (partialy implemented)</li>
-<li>Implement a <i>dark</i> and a <i>light</i> <b>theme</b> with a switch slider</li>
+<li><strike>Implement a <i>dark</i> and a <i>light</i> <b>theme</b> with a switch button</strike></li>
 <li>(optional) Implement <b>square root</b> and <b>power</b> operations</li>
 
 </ul>
