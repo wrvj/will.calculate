@@ -7,7 +7,9 @@ Simple calculator app
 <li><strike>Implement more complex operations using the current operators (plus, minus, multiplication and division)</strike></li>
 <li><strike>Test for edge cases</strike></li>
 <li><strike>Add a title and a simple description to the page</strike></li>
+<li>Add the app's description to the side menu as well as social media links</li>
 <li>Implement <b>keyboard</b> support (partialy implemented)</li>
+<li>Improve the UI Design (add gradient and better color pallete)</li>
 <li><strike>Implement a <i>dark</i> and a <i>light</i> <b>theme</b> with a switch button</strike></li>
 <li><strike> Implement <b>square root</b> and <b>power</b> operations</strike></li>
 
