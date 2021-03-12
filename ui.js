@@ -19,3 +19,9 @@ export function toggleTheme(root, theme){
   root.style.setProperty('--calculator-display-text', `var(--${theme}-calculator-display-text)`);
   root.style.setProperty('--calculator-key-accent', `var(--${theme}-calculator-key-accent)`);
 }
+
+export function setMobileHeight(){
+  let vh = window.innerHeight * 0.01;
+// Then we set the value in the --vh custom property to the root of the document
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+}

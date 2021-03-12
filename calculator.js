@@ -1,11 +1,11 @@
-class Calculator {
+export class Calculator {
 
     constructor() {
         this.resetCalculator();
     }
 
-    static VALID_KEYS = /\*|\/|\+|\-|\>|\=|\.|[(0-9)]/;
-    static OPERATOR_KEYS = /(\+|\-|\/|\*|\>)/;
+    static VALID_KEYS = /\*|\^|v|\/|\+|\-|\>|\=|\.|[(0-9)]/;
+    static OPERATOR_KEYS = /(\+|\-|\/|\*|\>|\^|v)/;
 
     static INITIAL_EXPRESSION = '0';
     static INITIAL_RAWINPUT = '0';
@@ -17,6 +17,8 @@ class Calculator {
         '-': (a, b) => { return (parseFloat(a) - parseFloat(b)) },
         '*': (a, b) => { return (parseFloat(a) * parseFloat(b)) },
         '/': (a, b) => { return (parseFloat(a) / parseFloat(b)) },
+        'v': (a, b) => { return (Math.sqrt(parseFloat(a))) },
+        '^': (a, b) => { return (Math.pow(parseFloat(a), 2)) },
         '>': (a, b) => { return parseFloat(b) }
     }
 

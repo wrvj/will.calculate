@@ -1,4 +1,5 @@
-import {getHistoryDisplay, toggleTheme} from './ui.js';
+import {getHistoryDisplay, toggleTheme, setMobileHeight} from './ui.js';
+import {Calculator} from './calculator.js'
 
 const calculatorElement = document.querySelector('#calculator');
 const keyboard = calculatorElement.querySelector('.keyboard');
@@ -8,6 +9,7 @@ const historyDisplay = calculatorElement.querySelector('.history-display p');
 const themeButton = document.querySelector('#themeButton');
 let theme = 'light';
 const root = document.documentElement;
+setMobileHeight();
 
 const calculator = new Calculator();
 

@@ -80,21 +80,7 @@ body {
     grid-area: side-menu;
     background-color: var(--side-menu);
 }
-@media only screen and (max-width : 600px){
-    body{
-        grid-template-areas: 'header' 'main-dashboard' 'side-menu';
-        grid-template-columns: 1fr;
-        grid-template-rows: 3rem 1fr 5rem;
-    }
-    .side-menu{
-        padding: 0px;
-        align-items: center;
-        justify-content: center;
-    }
-    .dashboard{
-        padding: 1rem 0;
-    }
-}
+
 header{
     grid-area: header;
     height: 100%;
@@ -133,7 +119,7 @@ header h1{
 .calculator {
     position: relative;
     overflow: hidden;
-    width: 16rem;
+    width: 16.5rem;
     border-radius: .5rem;
     background-color: var(--calculator-display);
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
@@ -145,7 +131,7 @@ header h1{
 .display-fade {
     position: absolute;
     width: 100%;
-    height: 2.5rem;
+    height: 3.5rem;
     background-image: linear-gradient(var(--calculator-display), rgba(0, 0, 0, 0));
 }
 .display {
@@ -153,8 +139,8 @@ header h1{
     
     text-align: right;
     padding: .4rem 1rem .7rem 1rem;
-    font-size: 2rem;
-    line-height: 2rem;
+    font-size: 3rem;
+    line-height: 3rem;
     color: var(--calculator-display-text);
 }
 .history-display{
@@ -163,7 +149,7 @@ header h1{
     justify-content: flex-end;
     color: var(--calculator-display-text);
     text-align: right;
-    height: 3rem;
+    height: 4rem;
     padding: 0rem 1rem 0rem 1rem;
     overflow-y: hidden;
     overflow-x: hidden;
@@ -176,7 +162,11 @@ header h1{
 
 .keyboard {
     display: grid;
-    grid-template-areas: '. . . .' 'seven eight nine equal' 'four five six equal' 'one two three equal' 'dot zero clear equal';
+    grid-template-areas:    'sqrt pwr divide multiplication' 
+                            'seven eight nine minus' 
+                            'four five six plus' 
+                            'one two three equal' 
+                            'dot zero clear equal';
     grid-gap: 2px;
 }
 
@@ -187,7 +177,7 @@ header h1{
     color: var(--calculator-key-accent);
     border: none;
     outline: none;
-    min-height: 3rem;
+    min-height: 3.4rem;
     background-color: var(--calculator-key);
 }
 
@@ -196,6 +186,24 @@ header h1{
     background-color: var(--color-key-active);
 }
 
+.plus{
+    grid-area: plus;
+}
+.minus{
+    grid-area: minus;
+}
+.times{
+    grid-area: multiplication;
+}
+.divide{
+    grid-area: divide;
+}
+.sqrt{
+    grid-area: sqrt;
+}
+.pwr{
+    grid-area: pwr;
+}
 .one {
     grid-area: one;
 }
@@ -255,4 +263,28 @@ header h1{
 
 [data-state='selected'] {
     background-color: rgba(255, 255, 255, 0.2);
+}
+
+@media only screen and (max-width : 600px){
+    body{
+        grid-template-areas: 'header' 'main-dashboard' 'side-menu';
+        grid-template-columns: 1fr;
+        grid-template-rows: 5rem 1fr 5rem;
+        min-height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+        min-height: calc(var(--vh, 1vh) * 100);
+    }
+    .side-menu{
+        padding: 0px;
+        align-items: center;
+        justify-content: center;
+    }
+    .dashboard{
+        padding: 1rem 0;
+    }
+    .calculator {
+        width: 80vw;
+    }
+    .calculator .key, .calculator .operator{
+        min-height: 4rem;
+    }
 }
