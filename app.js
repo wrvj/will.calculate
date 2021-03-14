@@ -1,5 +1,6 @@
 import {getHistoryDisplay, toggleTheme, setMobileHeight} from './ui.js';
-import {Calculator} from './calculator.js'
+import {Calculator} from './calculator.js';
+import {keyFilter} from './KeyFilter.js';
 
 const calculatorElement = document.querySelector('#calculator');
 const keyboard = calculatorElement.querySelector('.keyboard');
@@ -25,7 +26,9 @@ keyboard.addEventListener('click', event => {
     historyDisplay.innerHTML = getHistoryDisplay(calculator.state.history);
 });
 document.addEventListener('keydown', event => {
-    calculator.enterKey(event.key);
+    console.log(event.key, keyFilter[event.key])
+    calculator.enterKey(keyFilter[event.key]);
     display.textContent = calculator.state.input;
+    historyDisplay.innerHTML = getHistoryDisplay(calculator.state.history);
 })
 

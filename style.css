@@ -23,20 +23,21 @@
     --dark-side-menu: rgb(35, 35, 35);
     --dark-header: rgb(17, 17, 17);
     --dark-header-text: var(--cold-white);
-    --dark-calculator-key: rgb(53, 53, 53);
+    --dark-calculator-key: var(--dark-gray);
     --dark-calculator-key-accent: var(--cold-white);
-    --dark-calculator-display: rgb(29, 29, 29);
+    --dark-calculator-display: linear-gradient(90deg, rgb(172, 84, 12), rgb(233, 79, 33));
     --dark-calculator-display-text: var(--cold-white);
+    
 
     /* Light Theme */
     --light-dashboard: var(--cold-white);
     --light-side-menu: rgb(201, 210, 212);
-    --light-header: #eb811e;
+    --light-header: linear-gradient(90deg, rgb(231, 135, 57), rgb(233, 79, 33));
     --light-header-text: var(--cold-white);
-    --light-calculator-key: rgb(230, 230, 230);
+    --light-calculator-key: rgb(239, 254, 255);
     --light-calculator-key-accent: rgb(68, 68, 68);
-    --light-calculator-display: rgb(210, 210, 210);
-    --light-calculator-display-text: rgb(75, 75, 75);
+    --light-calculator-display: linear-gradient(90deg, rgb(231, 135, 57), rgb(233, 79, 33));
+    --light-calculator-display-text: var(--cold-white);
     
 
     /* Theme */
@@ -49,36 +50,19 @@
     --calculator-display: var(--dark-calculator-display);
     --calculator-display-text: var(--dark-calculator-display-text);
 
-
-    /* Food table config */
-    --table-font-size: 14px;
-    --table-font-weight: 200;
-    --table-font-color: var(--light-gray);
-    --filter-icons-table: invert(87%) sepia(21%) saturate(0%) hue-rotate(156deg) brightness(50%) contrast(96%);
-    --filter-icons-table-hover: invert(87%) sepia(21%) saturate(0%) hue-rotate(156deg) brightness(70%) contrast(96%);
-    --filter-icons-red: invert(48%) sepia(46%) saturate(2841%) hue-rotate(327deg) brightness(89%) contrast(119%);
-    --filter-icons-red-hover: invert(48%) sepia(46%) saturate(2841%) hue-rotate(327deg) brightness(60%) contrast(119%);
 }
 
 body {
     position: relative;
     display: grid;
-    grid-template-areas: 'header header' 'side-menu main-dashboard';
-    grid-template-columns: 200px 1fr;
+    grid-template-areas: 'header' 'main-dashboard';
+    grid-template-columns: 1fr;
     grid-template-rows: 5rem 1fr;
     min-height: 100vh;
     background: var(--light-gray);
     background-size: cover;
     background-position-x: center;
     font-family: "Montserrat", sans-serif;
-}
-.side-menu{
-    display: flex;
-    align-items: flex-start;
-    padding: .7rem 0;
-    justify-content: center;
-    grid-area: side-menu;
-    background-color: var(--side-menu);
 }
 
 header{
@@ -103,16 +87,21 @@ header h1{
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--dashboard);
+    background: var(--calculator-key);
     height: 2.5rem;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    width: 11rem;
     padding: 0 1.5rem;
     border-radius: 5px;
-    color: var(--calculator-display-text);
+    color: var(--calculator-key-accent);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
 }
 .dashboard{
     background-color: var(--dashboard);
     grid-area: main-dashboard;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -120,8 +109,9 @@ header h1{
     position: relative;
     overflow: hidden;
     width: 16.5rem;
-    border-radius: .5rem;
-    background-image: linear-gradient(90deg, rgb(172, 84, 12), rgb(233, 79, 33)) ;
+    margin-top: 1rem;
+    border-radius: 1rem;
+    background-image: var(--calculator-display);
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
 }
 .display-container{
@@ -149,7 +139,7 @@ header h1{
     justify-content: flex-end;
     color: var(--calculator-display-text);
     text-align: right;
-    height: 4rem;
+    height: 3.5rem;
     padding: 0rem 1rem 0rem 1rem;
     overflow-y: hidden;
     overflow-x: hidden;
@@ -183,12 +173,12 @@ header h1{
     border: none;
     outline: none;
     min-height: 3.4rem;
-    background-color: var(--dark-gray);
+    background-color: var(--calculator-key);
 }
 
 .key:active,
 .operator:active {
-    background-color: var(--color-key-active);
+    opacity: .7;
 }
 
 .plus{
@@ -258,7 +248,8 @@ header h1{
 }
 
 .equal {
-    background-image: linear-gradient(90deg, rgb(172, 84, 12), rgb(233, 79, 33)) ;
+    background-image: var(--calculator-display);
+    color: var(--cold-white);
     grid-area: equal;
     font-size: 1.5rem;
     padding: 0;
